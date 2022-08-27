@@ -1,19 +1,16 @@
 <script setup>
-const emits = defineEmits(["addTodo"]);
+// const emits = defineEmits(["addTodo"]);
+import useStore from "@/store";
+const { todoStore } = useStore();
+
 const addTodo = (e) => {
   if (!e.target.value.trim()) {
     alert("请输入内容");
     return;
   }
-  emits("addTodo", {
-    id: Math.random(),
-    name: e.target.value,
-    done: false,
-  });
+  todoStore.addTodo(e.target.value);
   e.target.value = "";
 };
-
-document.addEventListener("keyup", (e) => e);
 </script>
 
 <template>

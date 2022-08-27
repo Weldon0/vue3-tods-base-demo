@@ -1,26 +1,33 @@
 <script setup>
-defineProps({
-  leftCount: Number,
-});
+import useStore from "@/store/index";
+const { todoStore } = useStore();
 </script>
 
 <template>
   <footer class="footer">
     <span class="todo-count"
-      ><strong>{{ leftCount }}</strong> item left</span
+      ><strong>{{ todoStore.leftCount }}</strong> item left</span
     >
     <ul class="filters">
-      <li>
-        <a class="selected" href="#/">All</a>
+      <li @click="todoStore.changeType('ALL')">
+        <a :class="{ selected: todoStore.type === 'ALL' }" href="#/">All</a>
       </li>
-      <li>
-        <a href="#/active">Active</a>
+      <li @click="todoStore.changeType('ACTIVE')">
+        <a :class="{ selected: todoStore.type === 'ACTIVE' }" href="#/active"
+          >Active</a
+        >
       </li>
-      <li>
-        <a href="#/completed">Completed</a>
+      <li @click="todoStore.changeType('COMPLETE')">
+        <a
+          :class="{ selected: todoStore.type === 'COMPLETE' }"
+          href="#/completed"
+          >Completed</a
+        >
       </li>
     </ul>
-    <button class="clear-completed">Clear completed</button>
+    <button class="clear-completed" @click="todoStore.clearTodo">
+      Clear completed
+    </button>
   </footer>
 </template>
 
