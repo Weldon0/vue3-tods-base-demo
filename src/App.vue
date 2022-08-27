@@ -2,23 +2,16 @@
 import TodoHeader from "./components/TodoHeader.vue";
 import TodoMain from "./components/TodoMain.vue";
 import TodoFooter from "./components/TodoFooter.vue";
-import { ref, watch } from "vue";
 import useStore from "@/store";
 
 const { todoStore } = useStore();
 
 // 提供数据
-const list = ref(todoStore.list);
 
-watch(
-  list,
-  (value) => {
-    localStorage.setItem("todos", JSON.stringify(value));
-  },
-  {
-    deep: true,
-  }
-);
+console.log(todoStore);
+todoStore.$subscribe((e) => {
+  localStorage.setItem("todos", JSON.stringify(e.events.target));
+});
 </script>
 
 <template>
